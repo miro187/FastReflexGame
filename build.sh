@@ -10,6 +10,10 @@ set -x
 echo "Installing dependencies..."
 npm install
 
+# Ensure Tailwind is installed explicitly
+echo "Ensuring Tailwind is installed..."
+npm install tailwindcss@3.3.3 postcss@8.4.27 autoprefixer@10.4.14 --save
+
 # Create postcss.config.js if it doesn't exist
 if [ ! -f postcss.config.js ]; then
   echo "Creating postcss.config.js..."
@@ -23,9 +27,33 @@ module.exports = {
 EOL
 fi
 
+# Create or ensure tailwind.config.js
+if [ ! -f tailwind.config.js ]; then
+  echo "Creating tailwind.config.js..."
+  cat > tailwind.config.js << EOL
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        'game-red': '#FF4444',
+        'game-green': '#44FF44',
+      },
+    },
+  },
+  plugins: [],
+}
+EOL
+fi
+
 # Build Next.js app
 echo "Building Next.js app..."
-npm run build
+NODE_OPTIONS='--max-old-space-size=4096' npm run build
 
 # Create dist directory if it doesn't exist
 mkdir -p dist
