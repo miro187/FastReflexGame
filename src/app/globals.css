@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+.game-signal {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.game-signal.red {
+  background-color: #FF4444;
+  box-shadow: 0 0 50px #FF4444;
+}
+
+.game-signal.green {
+  background-color: #44FF44;
+  box-shadow: 0 0 50px #44FF44;
+}
+
+.game-signal.waiting {
+  background-color: #CCCCCC;
+  box-shadow: none;
+  cursor: not-allowed;
+} 
