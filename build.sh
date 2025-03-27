@@ -16,7 +16,7 @@ if [ ! -f postcss.config.js ]; then
   cat > postcss.config.js << EOL
 module.exports = {
   plugins: {
-    '@tailwindcss/postcss': {},
+    tailwindcss: {},
     autoprefixer: {},
   },
 }
