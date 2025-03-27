@@ -1,76 +1,81 @@
-# Fast Reflex - Multiplayer Reaction Game
+# Fast Reflex Game
 
-A real-time multiplayer browser game where players compete in a test of reflexes. Two players join a game lobby, and when the green signal appears, the first player to click wins!
+A multiplayer reaction game built with Next.js, React, and Socket.io.
 
 ## Features
 
-- Real-time multiplayer gameplay using Socket.io
-- Lobby system with unique game codes
-- Countdown timer before each round
-- Random delay between red and green signals
-- Instant feedback on wins and losses
-- Rematch functionality
+- Real-time multiplayer gameplay
+- Test your reflexes in a 1v1 match
+- Compete with your friends to see who has the faster reflexes
+- Lobby system for game creation and joining
+- Spacebar support for reaction testing
 - Responsive design with TailwindCSS
 
-## Prerequisites
+## How to Play
 
-- Node.js (v14 or higher)
-- npm (v6 or higher)
+1. Create a new game or join an existing one with a lobby code
+2. Wait for both players to be ready
+3. When the light turns green, click as fast as you can!
+4. See your reaction time and who won
+5. Play again with the rematch button
 
-## Installation
+## Local Development
 
-1. Clone the repository:
+### Prerequisites
+
+- Node.js 16.0.0 or higher
+- npm or yarn
+
+### Setup
+
+1. Clone the repository
 ```bash
-git clone <repository-url>
-cd fast-reflex
+git clone https://github.com/miro187/FastReflexGame.git
+cd FastReflexGame
 ```
 
-2. Install dependencies:
+2. Install dependencies
 ```bash
 npm install
 ```
 
-## Running the Game
-
-1. Start the backend server:
+3. Start the server
 ```bash
 npm run server
 ```
 
-2. In a new terminal, start the Next.js development server:
+4. In a separate terminal, start the Next.js app
 ```bash
 npm run dev
 ```
 
-3. Open your browser and navigate to `http://localhost:3000`
+5. Open your browser at http://localhost:3000
 
-## How to Play
+## Deployment on Render
 
-1. The first player creates a new game lobby
-2. Share the generated lobby code with the second player
-3. The second player enters the code and joins the game
-4. When both players are ready, the game starts automatically
-5. Wait for the countdown to finish
-6. A red signal will appear - DO NOT CLICK
-7. When the signal turns green, click as fast as you can!
-8. The first player to click wins the round
-9. Choose to rematch or leave the game
+This application is configured for easy deployment on Render.com:
 
-## Game Rules
+1. Create a new Web Service on Render
+2. Connect your GitHub repository
+3. Use the following settings:
+   - **Build Command**: `npm install && npm run build`
+   - **Start Command**: `npm run start:prod`
+   - **Environment Variables**: Set `NODE_ENV=production`
 
-- Clicking during the red signal results in an immediate loss
-- The first player to click when the signal turns green wins
-- Players can request a rematch after each round
-- Leaving the game will end the session for both players
+Alternatively, you can use the included `render.yaml` file to deploy with Blueprint:
+
+1. Push your code to GitHub
+2. Create a new Blueprint on Render
+3. Connect your repository
+4. The `render.yaml` file will automatically configure your service
 
 ## Technologies Used
 
-- Next.js
-- React
-- Socket.io
-- Express.js
-- TailwindCSS
-- TypeScript
+- [Next.js](https://nextjs.org/) - React framework for the frontend
+- [Socket.io](https://socket.io/) - Real-time communication
+- [TailwindCSS](https://tailwindcss.com/) - Styling
+- [TypeScript](https://www.typescriptlang.org/) - Type safety
+- [Express](https://expressjs.com/) - Server framework
 
 ## License
 

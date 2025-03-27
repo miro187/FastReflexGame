@@ -3,14 +3,30 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { v4 as uuidv4 } from 'uuid';
 import cors from 'cors';
+import path from 'path';
 
 const app = express();
 app.use(cors());
 
+// For production, serve the Next.js build
+if (process.env.NODE_ENV === 'production') {
+  const nextDir = path.join(__dirname, '.next');
+  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(nextDir));
+  
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(nextDir, 'server', 'pages', 'index.html'));
+  });
+}
+
 const httpServer = createServer(app);
+
+// Adapt CORS settings based on environment
+const CORS_ORIGIN = process.env.CORS_ORIGIN || "*";
+
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: CORS_ORIGIN,
     methods: ["GET", "POST"],
     credentials: true
   },
@@ -362,6 +378,7 @@ io.on('connection', (socket) => {
   });
 });
 
+// Use the PORT environment variable for Render
 const PORT = process.env.PORT || 3001;
 httpServer.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

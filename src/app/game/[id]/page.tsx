@@ -9,10 +9,32 @@ declare global {
   var socket: Socket | null;
 }
 
+// Determine the server URL based on environment
+const getServerUrl = () => {
+  // In the browser
+  if (typeof window !== 'undefined') {
+    // Check for environment variable first
+    if (process.env.NEXT_PUBLIC_SERVER_URL) {
+      return process.env.NEXT_PUBLIC_SERVER_URL;
+    }
+    
+    // For local development
+    if (window.location.hostname === 'localhost') {
+      return 'http://localhost:3001';
+    }
+    
+    // For production - same origin as the client
+    return window.location.origin;
+  }
+  
+  // Default for server-side rendering
+  return process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3001';
+};
+
 // Initialize socket if it doesn't exist yet
 if (typeof window !== 'undefined' && !global.socket) {
   console.log('Initializing global socket connection from game page...');
-  global.socket = io('http://localhost:3001', {
+  global.socket = io(getServerUrl(), {
     transports: ['websocket'],
     reconnection: true,
     reconnectionAttempts: 5,
@@ -74,7 +96,7 @@ export default function GamePage() {
     // Ensure socket is initialized
     if (typeof window !== 'undefined' && !global.socket) {
       console.log('Initializing socket connection for game...');
-      global.socket = io('http://localhost:3001', {
+      global.socket = io(getServerUrl(), {
         transports: ['websocket'],
         reconnection: true,
         reconnectionAttempts: 5,
